@@ -1,15 +1,15 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="CCFToolkit",  # 模块名称
-    version="1.0.0",  # 版本号
-    author="Ma Chenxing",  # 作者姓名
-    author_email="tammcx@gmail.com",  # 作者邮箱
-    description="A toolkit for reading and generating Paintman CCF files for color chart management.",  # 简短描述
-    long_description=open("README.md", "r", encoding="utf-8").read(),  # 读取 README 作为长描述
-    long_description_content_type="text/markdown",  # 长描述的格式
-    url="https://github.com/ChenxingM/Paintman-CCF",  # 项目主页（如 GitHub 仓库）
-    packages=find_packages(),  # 自动查找所有包
+    name="PaintmanToolkit",
+    version="1.0.1",
+    author="Ma Chenxing",
+    author_email="tammcx@gmail.com",
+    description="A toolkit for reading and generating Paintman related files for color management.",
+    long_description=open("README.md", "r", encoding="utf-8").read(),
+    long_description_content_type="text/markdown",
+    url="https://github.com/ChenxingM/PaintmanToolkit",
+    packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

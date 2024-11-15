@@ -1,0 +1,8 @@
+README.md
+setup.py
+PaintmanToolkit/__init__.py
+PaintmanToolkit/paintman_toolkit.py
+PaintmanToolkit.egg-info/PKG-INFO
+PaintmanToolkit.egg-info/SOURCES.txt
+PaintmanToolkit.egg-info/dependency_links.txt
+PaintmanToolkit.egg-info/top_level.txt

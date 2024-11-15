@@ -1,4 +1,5 @@
 from typing import List, Tuple
+import binascii
 
 RGB8: int = 8
 RGB16: int = 16
@@ -225,3 +226,92 @@ class CCFReader:
             filtered_data = color_data
 
         return filtered_data
+
+class CRFReader:
+    """
+    CRFファイルを解析するクラス。
+
+    :method: parse_color_groups_efficiently(crf_file_path): CRFファイルを読み込み、色のペアを抽出する。
+
+    """
+
+    def read_crf_file(self, crf_file_path : str) -> List[List[Tuple[int, int, int]]]:
+        """
+        CRFファイルから色のペアを解析する。
+
+        :param crf_file_path: 解析するCRFファイルのパス。
+        :type crf_file_path: str
+        :return: [[(R, G, B), (R, G, B)], ...] 色のペアのリスト、各ペアは(R, G, B)形式のタプルで構成される。
+        :例外:
+            - ValueError: ファイルが空の場合。
+        """
+        with open(crf_file_path, 'rb') as f:
+            data = f.read()
+
+        colors: List[List[Tuple[int, int, int]]] = []
+        index: int = 26  # ヘッダーをスキップ
+
+        while index < len(data) - 6:
+            # '00 01'区切りを検索
+            if data[index:index + 2] == b'\x00\x01':
+                index += 2  # 区切りをスキップ
+
+                # 連続する2つの色を抽出 (各色は3バイト: R, G, B)
+                if index + 6 <= len(data):
+                    color1: Tuple[int, int, int] = (data[index], data[index + 1], data[index + 2])
+                    color2: Tuple[int, int, int] = (data[index + 3], data[index + 4], data[index + 5])
+                    if color1 == color2:
+                        break
+                    colors.append([color1, color2])
+                    index += 6  # 次の区切りへ移動
+            else:
+                index += 1  # 区切りでない場合は次へ
+
+        return colors
+
+class CRFGenerator:
+    """
+    CRFファイルを生成するクラス。
+
+    :method: generate_crf_file(color_pairs, output_filename): 色のペアを使用してCRFファイルを作成する
+    """
+
+    def generate_crf_file(self,
+                          color_pairs: List[List[Tuple[int, int, int]]],
+                          output_file_path: str
+                          ) -> None:
+        """
+        色のペアを使用してCRFファイルを生成する。
+
+        :param color_pairs: [[(R, G, B), (R, G, B)], ...] 形式の色のペアのリスト。
+        :param output_file_path: 生成するCRFファイルのパス。
+        :例外:
+            - ValueError: 色のペアリストが空の場合。
+        """
+        color_pairs_count: int = len(color_pairs)
+        if color_pairs_count == 0:
+            raise ValueError("色のペアリストが空です！")
+        if color_pairs_count > 256:
+            raise ValueError("色のペアの数が256を超えています！")
+        if len(color_pairs) < 123:
+            color_pairs.extend([[(255, 255, 255), (255, 255, 255)] for _ in range(123 - len(color_pairs))])
+
+        # 固定ヘッダー（26バイト）
+        header: bytes = b"5061696E744D616E436F6C6F725265706C61636546696C65027B"  # "PaintManColorReplaceFile {"
+        header_bytes: bytes = binascii.unhexlify(header)
+
+        # バイトデータを構築
+        data = bytearray(header_bytes)
+
+        # 色のペアを順番に追加
+        for color1, color2 in color_pairs:
+            # 区切り '00 01'を追加
+            data.extend(b'\x00\x01')
+            # 最初の色 (R, G, B)を追加
+            data.extend(bytes(color1))
+            # 2番目の色 (R, G, B)を追加
+            data.extend(bytes(color2))
+
+        # データをバイナリファイルに書き込み
+        with open(output_file_path, "wb") as file:
+            file.write(data)
