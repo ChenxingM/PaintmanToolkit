@@ -80,4 +80,3 @@ For questions or support, feel free to pull a request or issue.
 ---
 
 Enjoy using `CCFToolkit` for your color chart management in animation projects!
-```
