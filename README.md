@@ -1,7 +1,3 @@
-Here's the rewritten README for **PaintmanToolkit** with the updated classes and details:
-
----
-
 # PaintmanToolkit
 
 **PaintmanToolkit** is a comprehensive Python module designed for managing Paintman CCF (Color Chart File) and CRF (Color Replace File) formats, essential for color chart and replacement management in animation production. The toolkit supports reading and generating files with both 8-bit and 16-bit RGB(only for CCFReader) color depths.
