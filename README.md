@@ -75,14 +75,9 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 Contributions are welcome! Please submit a pull request or open an issue to suggest improvements or report bugs.
 
 ## Contact
-For questions or support, feel free to reach out to [your_email@example.com].
+For questions or support, feel free to pull a request or issue.
 
 ---
 
 Enjoy using `CCFToolkit` for your color chart management in animation projects!
 ```
-
-### Notes:
-- **Replace `yourusername` and `your_email@example.com`**: Be sure to replace these with your GitHub username and email address.
-- **Customize the License Section**: If you have a specific license file, link it appropriately.
-- **Add More Usage Examples**: If your users might need more guidance, you can expand the usage section with additional examples.
