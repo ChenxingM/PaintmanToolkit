@@ -7,7 +7,7 @@
 To install PaintmanToolkit, use `pip`:
 
 ```bash
-pip install PaintmanToolkit
+pip install Paintman-Toolkit
 ```
 
 ## Usage
