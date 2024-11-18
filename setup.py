@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="PaintmanToolkit",
-    version="1.0.1",
+    version="1.0.3",
     author="Ma Chenxing",
     author_email="tammcx@gmail.com",
     description="A toolkit for reading and generating Paintman related files for color management.",
